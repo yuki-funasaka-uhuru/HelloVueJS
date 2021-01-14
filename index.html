@@ -15,6 +15,13 @@
                 <!-- <a v-bind:href="url">Google</a> -->
                 <a :[attribute]="url">Google</a>
                 <a v-bind="twitterObject">Twitter</a>
+                <br />
+                <p>現在{{ number }}回クリックされています。</p>
+                <button v-on:click="countup(3)">カウントアップ</button>
+                <button v-on:click="reset()">リセットボタン</button>
+
+                <p v-on:mousemove="changeMousePosition(3, $event)">マウスを乗せてください</p>
+                <p>X:{{x}},Y:{{y}}</p>
         </div>
         
         <script>
@@ -23,12 +30,13 @@
                         data: {
                                 message: "HelloWold!!",
                                 url: "https://google.com",
-                                urlTwitter:"https://twitter.com",
-                                number: 31,
                                 attribute: "href",
                                 twitterObject: {
                                         href: "https://twitter.com", id: 31
-                                }
+                                },
+                                number: 0,
+                                x:0,
+                                y:0
                         },
                         methods: {
                                 reverse: function() {
@@ -37,6 +45,16 @@
                                 sayHi(){
                                         this.message = "Hello VueJS"
                                         return "Hi"
+                                },
+                                countup(times){
+                                        this.number += 1 * times
+                                },
+                                reset(){
+                                        this.number = 0
+                                },
+                                changeMousePosition(divide, event){
+                                        this.x = event.clientX / divide;
+                                        this.y = event.clientY / divide;
                                 }
                         }
                 })
