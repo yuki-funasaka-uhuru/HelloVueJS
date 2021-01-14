@@ -14,7 +14,7 @@
                 <p>{{ sayHi() }}</p>
                 <!-- <a v-bind:href="url">Google</a> -->
                 <a :[attribute]="url">Google</a>
-                <a v-bind="{href: urlTwitter, id: number}">Twitter</a>
+                <a v-bind="twitterObject">Twitter</a>
         </div>
         
         <script>
@@ -25,7 +25,10 @@
                                 url: "https://google.com",
                                 urlTwitter:"https://twitter.com",
                                 number: 31,
-                                attribute: "href"
+                                attribute: "href",
+                                twitterObject: {
+                                        href: "https://twitter.com", id: 31
+                                }
                         },
                         methods: {
                                 reverse: function() {
