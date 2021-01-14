@@ -13,22 +13,42 @@
                 <button v-on:click="reverse">reverse message</button>
                 <p>{{ sayHi() }}</p>
                 <!-- <a v-bind:href="url">Google</a> -->
+
+                <!-- v-bindは:で省略できるよ、あと[]で変数を取れるよ -->
                 <a :[attribute]="url">Google</a>
                 <a v-bind="twitterObject">Twitter</a>
                 <br />
                 <p>現在{{ number }}回クリックされています。</p>
                 <button v-on:click="countup(3)">カウントアップ</button>
-                <button v-on:click="reset()">リセットボタン</button>
 
-                <p v-on:mousemove="changeMousePosition(3, $event)">マウスを乗せてください</p>
+                <!-- v-onは@で省略できるよ！ -->
+                <button @click="reset()">リセットボタン</button>
+
+                <!-- stop,prevent修飾子 -->
+                <p v-on:mousemove="changeMousePosition(3, $event)">マウスを乗せてください
+                        <span v-on:mousemove.stop>反応しないでください</span>
+                </p>
+                <a v-on:click.prevent="noEvent" href="https://google.com">Google</a>
                 <p>X:{{x}},Y:{{y}}</p>
+
+                <!-- key修飾子 -->
+                <input type="text" v-on:keyup.enter="myAlert">
+
+
+                <!-- 双方向バインディングに使える!v-model!すげえ -->
+                <br><br>
+                <p>ユーザーの入力によってオブジェクトの中身が変わるのをクライアントサイドだけでやってのけるのはすごいな！</p>
+                <input type="text" v-model="text">
+                <p>{{text}}</p>
+
+
         </div>
         
         <script>
                 new Vue({
                         el:"#app",
                         data: {
-                                message: "HelloWold!!",
+                                message: "HelloWorld!",
                                 url: "https://google.com",
                                 attribute: "href",
                                 twitterObject: {
@@ -36,7 +56,8 @@
                                 },
                                 number: 0,
                                 x:0,
-                                y:0
+                                y:0,
+                                text: "こんにちは"
                         },
                         methods: {
                                 reverse: function() {
@@ -55,6 +76,12 @@
                                 changeMousePosition(divide, event){
                                         this.x = event.clientX / divide;
                                         this.y = event.clientY / divide;
+                                },
+                                noEvent(event){
+                                        
+                                },
+                                myAlert() {
+                                        alert("アラート！")
                                 }
                         }
                 })
